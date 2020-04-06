@@ -6,7 +6,7 @@ class FundingRound
     @startup = startup
     @investor = investor
     @type = type
-    @investment = investment if investment >= 0
+    investment >= 0 ? @investment = investment : @invesment = 0
     FundingRound.all << self
   end
 
