@@ -24,6 +24,7 @@ We've provided you with a console that you can use to test your code. To enter a
 ## Deliverables
 
 ### Basic Class Methods and Properties
+## Startup -{FundingRound}- VentureCapitialist
 
 #### Build the following methods on the `Startup` class
 
