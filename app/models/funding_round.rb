@@ -6,7 +6,7 @@ class FundingRound
     @startup = startup
     @investor = investor
     @type = type
-    investment >= 0 ? @investment = investment : @invesment = 0
+    investment >= 0 ? @investment = investment : begin raise ArgumentError.new('Number must be positive') end
     FundingRound.all << self
   end
 
