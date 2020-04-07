@@ -1,79 +1,47 @@
 class Startup
-    attr_reader :founder_name
-    attr_accessor :domain, :name
-    @@all = []
-    def initialize (name, founder_name, domain)
+   attr_reader :founder
+   attr_accessor :name, :domain
+   @@all = []
+    def initialize(name, founder, domain)
         @name = name
-        @founder_name =founder_name
+        @founder =founder
         @domain = domain
         @@all << self
     end
-    def pivot=(name, domain)
-        @name = name
-        @domain = domain
-    end
     def self.all
         @@all
-    end 
-    def self.find_my_founder(founder_name)
-        @@all.find do |key|
-            if key.founder_name == founder_name
-                return key
-            else
-                "#{founder_name} did not create a startup yet."
-            end
-        end
     end
-
+    def pivot(domain, name)
+        self.domain = domain
+        self.name = name
+    end
+    def self.find_by_founder(founder)
+        Startup.all.find {|key| key.founder == founder}
+    end
     def self.domains
-        array = []
-        @@all.select do |key|
-            array << key.domain
-        end
-        array.uniq
+        Startup.all.map {|key| key.domain}.uniq
     end
-
     def sign_contract(venture_capitalist, type, investment)
-        FundingRound.new(self, venture_capitalist, type, investment)
+        FundingRound.new(type, self, venture_capitalist, investment)
     end
-    def num_of_funding_rounds(startup)
-        array = []
-        FundingRound.all.select do |key|
-            if key.startup == startup
-                array << key
-            end
-        end
-        array.count
+    def all_funding_rounds
+        FundingRound.all.select {|key| key.startup == self}
     end
-    def total_funds(startup)
-        total = 0
-        FundingRound.all.select do |key|
-            if key.startup == startup
-                total += key.investment
-            end
-        end
-        total
+    def num_funding_rounds
+        self.all_funding_rounds.count
     end
-    def investors(startup)
-        array = []
-        FundingRound.all.select do |key|
-            if key.startup == startup
-                array << key.venture_capitalist
-            end
+    def total_funds
+        total_sum = 0
+        self.all_funding_rounds.select do |key|
+            total_sum += key.investment
         end
-        array
+        total_sum
     end
-    def big_investors(startup)
-        array = investors(startup)
-        ans = []
-        array.select do |key|
-            VentureCapitalist.tres_commas_club.select do |value|
-                if key == value
-                    ans << key
-                end
-            end
-        end
-        ans
+    def investors
+        self.all_funding_rounds.map {|key| key.venture_capitalist}
+    end
+    def big_investors
+        self.investors.select{|key| key.total_worth > 1000000000}
     end
 
 end

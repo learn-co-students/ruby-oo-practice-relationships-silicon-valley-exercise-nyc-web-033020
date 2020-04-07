@@ -8,19 +8,23 @@ end
 # so they will be available to test and play around with in your console
 ig = Startup.new("ig", "jordan", "photo")
 facebook = Startup.new("facebook", "lance", "social media")
-tinder = Startup.new("tinder", "jordan", "meetup")
+tinder = Startup.new("tinder", "jotaro", "meetup")
 hinge = Startup.new("hinge", "lance", "meetup")
 tiktok = Startup.new("Tik Tok", "ignace", "social media")
+twitter = Startup.new("Twitter", "Mr x", "bird")
 
 jordan = VentureCapitalist.new("jordan", 2000000000)
-jordan2 = VentureCapitalist.new("jordan",5000)
+jotaro = VentureCapitalist.new("jotaro",5000)
 lance = VentureCapitalist.new("Lance", 3000000000)
 ignace = VentureCapitalist.new("Ignace", 100000000)
 
-a = jordan.offer_contract(ig, "Angel", 2200.50)
-b = jordan.offer_contract(tinder, "Angel", 700000)
-c = lance.offer_contract(facebook, "Seed", 5000000)
-d = ignace.offer_contract(tiktok, "Series B", 500000)
+jotaro.offer_contract(tinder, "Angel", 2200.50)
+jordan.offer_contract(ig, "Angel", 700000)
+lance.offer_contract(facebook, "Seed", 5000000)
+ignace.offer_contract(tiktok, "Series B", 500000)
+ignace.offer_contract(twitter, "pre-seed", 600000)
+
+twitter.sign_contract(lance, "pre-seed", 200)
 
 binding.pry
 0 #leave this here to ensure binding.pry isn't the last line
